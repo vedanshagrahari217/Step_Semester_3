@@ -1,43 +1,44 @@
-
-
 import java.util.Scanner;
 
 abstract class Customer {
     protected double amount;
 
-    Customer(double amount) {
+    public Customer(double amount) {
         this.amount = amount;
     }
 
-    abstract double calculateFinalAmount();
+    public abstract double calculateFinalAmount();
 }
 
 class Student extends Customer {
-    Student(double amount) {
+    public Student(double amount) {
         super(amount);
     }
 
-    double calculateFinalAmount() {
+    @Override
+    public double calculateFinalAmount() {
         return amount * 0.90; // 10% discount
     }
 }
 
 class Staff extends Customer {
-    Staff(double amount) {
+    public Staff(double amount) {
         super(amount);
     }
 
-    double calculateFinalAmount() {
+    @Override
+    public double calculateFinalAmount() {
         return amount * 0.95; // 5% discount
     }
 }
 
 class Guest extends Customer {
-    Guest(double amount) {
+    public Guest(double amount) {
         super(amount);
     }
 
-    double calculateFinalAmount() {
+    @Override
+    public double calculateFinalAmount() {
         return amount + 10; // service charge
     }
 }
@@ -47,30 +48,37 @@ public class q1 {
         Scanner sc = new Scanner(System.in);
 
         int n = sc.nextInt();
-        double total = 0;
+        double total = 0.0;
 
         for (int i = 0; i < n; i++) {
-            String type = sc.next();
+
+            String type = sc.next().toUpperCase();
             double amount = sc.nextDouble();
 
-            Customer customer = null;
+            Customer customer;
 
-            switch (type.toUpperCase()) {
+            switch (type) {
                 case "STUDENT":
                     customer = new Student(amount);
                     break;
+
                 case "STAFF":
                     customer = new Staff(amount);
                     break;
+
                 case "GUEST":
                     customer = new Guest(amount);
                     break;
+
+                default:
+                    System.out.println("Invalid customer type");
+                    continue;
             }
 
             double finalAmount = customer.calculateFinalAmount();
             total += finalAmount;
 
-            System.out.printf("%s: %.2f%n", type.toUpperCase(), finalAmount);
+            System.out.printf("%s: %.2f%n", type, finalAmount);
         }
 
         System.out.printf("Total: %.2f%n", total);
