@@ -1,30 +1,23 @@
-import java.util.Arrays;
-
 public class q1 {
 
-    public static void shelf(int[] books) {
+    public static int firstBreak(int[] tokens) {
 
-        for (int i = 1; i < books.length; i++) {
+        for (int i = 1; i < tokens.length; i++) {
 
-            int key = books[i];
-            int j = i - 1;
-
-            while (j >= 0 && books[j] > key) {
-                books[j + 1] = books[j];
-                j--;
+            if (tokens[i] < tokens[i - 1]) {
+                return i;
             }
-
-            books[j + 1] = key;
-
-            System.out.println("After placing " + key + ": "
-                    + Arrays.toString(books));
         }
+
+        return -1;
     }
 
     public static void main(String[] args) {
 
-        int[] books = {30, 10, 40, 20};
+        int[] tokens1 = {3, 5, 5, 8, 6, 9};
+        int[] tokens2 = {1, 2, 2, 7};
 
-        shelf(books);
+        System.out.println(firstBreak(tokens1));
+        System.out.println(firstBreak(tokens2));
     }
 }
