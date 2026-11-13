@@ -2,38 +2,29 @@ import java.util.Arrays;
 
 public class q1 {
 
-    public static void prizeTable(int[] marks) {
+    public static void shelf(int[] books) {
 
-        int swaps = 0;
-        int n = marks.length;
+        for (int i = 1; i < books.length; i++) {
 
-        for (int i = 0; i < n - 1; i++) {
+            int key = books[i];
+            int j = i - 1;
 
-            int maxIndex = i;
-
-            for (int j = i + 1; j < n; j++) {
-                if (marks[j] > marks[maxIndex]) {
-                    maxIndex = j;
-                }
+            while (j >= 0 && books[j] > key) {
+                books[j + 1] = books[j];
+                j--;
             }
 
-            if (maxIndex != i) {
-                int temp = marks[i];
-                marks[i] = marks[maxIndex];
-                marks[maxIndex] = temp;
-                swaps++;
-            }
+            books[j + 1] = key;
+
+            System.out.println("After placing " + key + ": "
+                    + Arrays.toString(books));
         }
-
-        System.out.println(Arrays.toString(marks) + " swaps = " + swaps);
     }
 
     public static void main(String[] args) {
 
-        int[] marks1 = {45, 90, 60, 75};
-        prizeTable(marks1);
+        int[] books = {30, 10, 40, 20};
 
-        int[] marks2 = {80, 70, 60};
-        prizeTable(marks2);
+        shelf(books);
     }
 }
