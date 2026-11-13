@@ -1,28 +1,28 @@
 public class q1 {
 
-    public static String[] rotateRoster(String[] names, int k) {
+    public static int secondHighest(int[] scores) {
 
-        int n = names.length;
-        k = k % n; // handle k > n
+        int highest = -1;
+        int second = -1;
 
-        String[] result = new String[n];
+        for (int score : scores) {
 
-        for (int i = 0; i < n; i++) {
-            result[(i + k) % n] = names[i];
+            if (score > highest) {
+                second = highest;
+                highest = score;
+            }
+            else if (score > second && score != highest) {
+                second = score;
+            }
         }
 
-        return result;
+        return second;
     }
 
     public static void main(String[] args) {
 
-        String[] names = {"A", "B", "C", "D", "E"};
-        int k = 2;
+        int[] scores = {45, 78, 92, 78, 60};
 
-        String[] rotated = rotateRoster(names, k);
-
-        for (String name : rotated) {
-            System.out.print(name + " ");
-        }
+        System.out.println(secondHighest(scores));
     }
 }
